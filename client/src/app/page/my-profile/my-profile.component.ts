@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit, TemplateRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../common/services/user.service';
-import { User } from '../../common/models/user';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { Subject } from 'rxjs/Rx';
 
@@ -17,25 +16,25 @@ export class MyProfileComponent implements OnInit, OnDestroy {
 
   constructor(private readonly userInfoService: UserService,
               private readonly route: ActivatedRoute,
-              private modalService: BsModalService,
+              private readonly modalService: BsModalService,
               private readonly router: Router) { }
 
   user;
   id: any;
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.checkIdParam();
   }
 
-  editUser() {
-    this.router.navigate(['/profile/edit-user', this.user._id], {relativeTo: this.route});
+  editUser(): void {
+    this.router.navigate(['/profile/edit-user', this.id], {relativeTo: this.route});
   }
-  openModal(template: TemplateRef<any>) {
+  openModal(template: TemplateRef<any>): void {
     this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
   }
 
   confirm(): void {
-    this.userInfoService.deleteUser(this.user.id)
+    this.userInfoService.deleteUser(this.user._id)
       .takeUntil(this.destroy$)
       .subscribe(() =>
         this.router.navigate(['/profile/contact-info'], {relativeTo: this.route}));
@@ -47,8 +46,8 @@ export class MyProfileComponent implements OnInit, OnDestroy {
   }
 
   private readonly checkIdParam = () => {
-    const id = this.route.snapshot.paramMap.get('id');
-    this.loadUser(id);
+    this.id = this.route.snapshot.paramMap.get('id');
+    this.loadUser(this.id);
   };
 
   private getFullName(): string {

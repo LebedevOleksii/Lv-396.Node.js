@@ -4,7 +4,7 @@
   </div>
 </div>
 <accordion>
-  <accordion-group #group [isOpen]="isOpen" (click)="openTask()" [ngClass]="{'open': isOpen}">
+  <accordion-group #group [isOpen]="isOpen" (click)="openTask()">
     <div accordion-heading class="heading-grid">
       <div class={{unreadClass}}></div>
       <span>{{ task.id }}</span>
@@ -46,18 +46,18 @@
       <div class="reassign-button">
         <app-modal [modalType]="'RE-ASSIGNE'" [task]="task"></app-modal>
       </div>
-    </div>
-    <div class="view-comment" dropdown *ngIf="task.comments">
-      <span dropdownToggle>ViewComment</span>
-      <ul class="user-bar__menu dropdown-menu" *dropdownMenu role="menu" aria-labelledby="button-disabled-item">
-        <li class="user-bar__row user-bar__elem  dropdown-item" *ngFor="let comments of task.comments"
-          role="menuitem">
-          <div>
-            <div class="comment-creator"> {{ comments.creator.firstName }} {{ comments.creator.lastName }} </div>
-            <p class="comment-content"> {{ comments.content }}</p>
-          </div>
-        </li>
-      </ul>
+      <div class="view-comment" dropdown *ngIf="task.comments">
+        <span dropdownToggle>ViewComment ({{task.comments.length}})</span>
+        <ul class="user-bar__menu dropdown-menu" *dropdownMenu role="menu" aria-labelledby="button-disabled-item">
+          <li class="user-bar__row user-bar__elem  dropdown-item" *ngFor="let comments of task.comments"
+            role="menuitem">
+            <div>
+              <div class="comment-creator"> {{ comments.creator.firstName }} {{ comments.creator.lastName }} </div>
+              <p class="comment-content"> {{ comments.content }}</p>
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
   </accordion-group>
 </accordion>

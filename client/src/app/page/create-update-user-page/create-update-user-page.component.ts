@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UserService } from '../../common/services/user.service';
-import { User } from '../../common/models/user';
 import { Subject } from 'rxjs/Rx';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { User } from '../../common/models/user';
 
 @Component({
   selector: 'app-create-update-user-page',
@@ -13,7 +13,7 @@ import { ToastrService } from 'ngx-toastr';
 export class CreateUpdateUserPageComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
 
-  user: User = new User();
+  user = new User();
   ifChosenDevelopmentDepartment: boolean;
   ifChosenHrDepartment: boolean;
   notValidUser: boolean;
@@ -26,7 +26,7 @@ export class CreateUpdateUserPageComponent implements OnInit, OnDestroy {
               private toastr: ToastrService) {
   }
 
-  showSuccess() {
+  showSuccess(): void {
     this.toastr.success('Hello world!', 'Toastr fun!');
   }
 
@@ -41,10 +41,8 @@ export class CreateUpdateUserPageComponent implements OnInit, OnDestroy {
 
   private getEmployee(id: string): void {
     if (id) {
-      this.userService.takeUser
-        .subscribe(user => {
-          this.user = user;
-        });
+      this.userService.getUser(id, true)
+        .subscribe(user => this.user = user);
     } else {
       this.create = true;
     }
@@ -56,13 +54,12 @@ export class CreateUpdateUserPageComponent implements OnInit, OnDestroy {
     this.ifChosenHrDepartment = chosenHrDepartment;
     this.user.phone = '35839946448845';
     this.user.email = 'trley@gmail.com';
-
     if (this.validateUser()) {
-      if (this.user.id) {
+      if (this.user._id) {
         this.userService.updateUser(this.user)
           .takeUntil(this.destroy$)
           .subscribe((data: any) => {
-            this.router.navigate(['/profile/my-profile/', this.user.id], {relativeTo: this.route});
+            this.router.navigate(['/profile/my-profile/', this.user._id], {relativeTo: this.route});
           });
       } else {
         this.userService.addUser(this.user)

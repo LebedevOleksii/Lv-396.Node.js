@@ -14,7 +14,7 @@ import { Subject } from 'rxjs/Rx';
 export class CreateUpdateSideBarInfoComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
 
-  @Input() user: User;
+  @Input() user;
   departmentsOptionPair: OptionPair[] = [];
   departments: IDepartment[] = [];
   positions: OptionPair[] = [];

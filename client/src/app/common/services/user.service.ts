@@ -56,26 +56,8 @@ export class UserService {
 
     return this.http.get<any>(`${api}users/${id || userId}`, httpOptions)
       .pipe(tap(res => {
-        this.user = {
-            contacts: res.contacts,
-            dates: res.dates,
-            email: res.email,
-            firstName: res.firstName,
-            hr: res.hr,
-            lastName: res.lastName,
-            phone: res.phone,
-            photoID: res.photoID,
-            photoURL: res.photoURL,
-            position: res.position,
-            roles: res.roles,
-            watchedIssues: res.watched_issues,
-            id: res._id,
-            type: res.type,
-            department: this.checkProperty(res.department),
-            manager: this.checkProperty(res.manager),
-            teamlead: this.checkProperty(res.teamlead)
-          };
-        this.currentUser(required, this.user);
+          this.user = res;
+          this.currentUser(required, this.user);
         })
       );
   }

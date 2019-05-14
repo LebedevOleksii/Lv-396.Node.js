@@ -28,7 +28,7 @@ export class Manager {
 }
 
 export  class User {
-  constructor(public id?: any,
+  constructor(public _id?: any,
               public firstName?: string,
               public lastName?: string,
               public position?: string,
@@ -42,7 +42,7 @@ export  class User {
               public photoID?: string,
               public hr?: object,
               public dates?: DatesItem[],
-              public watchedIssues?: string[],
+              public watched_issues?: string[],
               public roles?: string[],
               public type?: string) {}
 }

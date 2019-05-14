@@ -11,7 +11,7 @@ export class NavItemsService {
     return of(NAVBAR_LIST);
   }
   currentRouter(currentRouter: string): Observable<NavItem[]> {
-    NAVBAR_LIST.map(item => item.current = item.router === currentRouter);
+    NAVBAR_LIST.map(item => item.current = item.router.split('/')[2] === currentRouter.split('/')[2]);
 
     return of(NAVBAR_LIST);
   }

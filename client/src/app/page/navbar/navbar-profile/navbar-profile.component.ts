@@ -49,16 +49,16 @@ export class NavbarProfileComponent implements OnInit, OnChanges {
     this.userService.takeUser
       .subscribe(user => {
         this.user = user;
+        this.loadUserTasks();
       });
     this.loadDates();
-    this.loadUserTasks();
     this.todayDate = new Date();
     this.user.photoURL = this.user.photoURL || 'assets/img/userimg.jpg';
   }
 
   openTaskByid(taskID: string): boolean {
     if (this.typeOfUser) {
-      this.tasksService.taskIsWatched(this.user.id, taskID)
+      this.tasksService.taskIsWatched(this.user._id, taskID)
         .subscribe(res => {
           this.removeFromNew(taskID);
         });
@@ -102,7 +102,7 @@ export class NavbarProfileComponent implements OnInit, OnChanges {
   loadUserTasks(): void {
     this.tasksService.takeUserTasks
       .subscribe(tasks => {
-        this.newTasks = this.findNewTasks(tasks, this.user.watchedIssues);
+        this.newTasks = this.findNewTasks(tasks, this.user.watched_issues);
         this.newTasksCount = this.newTasks.length;
       });
   }
@@ -114,7 +114,7 @@ export class NavbarProfileComponent implements OnInit, OnChanges {
 
   findNewTasks(allTasks: any, watched: string[]): Task[] {
     if (this.userType === 'hr') {
-      const arr = allTasks.filter(task => (task.author._id !== this.user.id && !task.resolvedByPerformer));
+      const arr = allTasks.filter(task => (task.author._id !== this.user._id && !task.resolvedByPerformer));
 
       return arr.filter(task => !(watched.includes(task.id)));
     }
@@ -131,7 +131,7 @@ export class NavbarProfileComponent implements OnInit, OnChanges {
   }
 
   editUserPage(): void {
-    this.router.navigate(['/profile/edit-user', this.user.id], { relativeTo: this.route });
+    this.router.navigate(['/profile/edit-user', this.user._id], { relativeTo: this.route });
   }
 
   currentByIndex(i: number): boolean {

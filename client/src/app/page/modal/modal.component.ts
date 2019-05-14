@@ -161,7 +161,7 @@ export class ModalComponent implements OnInit {
       assignTo: this.usersIds[this.userDropDown.defaultValue],
       reassigned: this.task.author._id,
     };
-    if (this.editTask.assignTo === this.user.id) {
+    if (this.editTask.assignTo === this.user._id) {
       this.errorAssignTo = true;
     }
     this.updateTask = false;

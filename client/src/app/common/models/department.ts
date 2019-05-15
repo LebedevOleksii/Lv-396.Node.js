@@ -1,5 +1,7 @@
-export interface IDepartment {
-  _id: string;
-  name: string;
-  position: [];
+export class Department {
+  constructor(public _id: string,
+              public name: string,
+              public position: []) {
+  }
 }
+

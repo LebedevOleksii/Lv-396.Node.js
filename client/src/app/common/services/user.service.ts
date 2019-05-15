@@ -22,7 +22,8 @@ export class UserService {
 
   chosenDepartment = new EventEmitter();
 
-  constructor(private readonly http: HttpClient) {}
+  constructor(private readonly http: HttpClient) {
+  }
 
   user: User;
   helper = new JwtHelperService();
@@ -85,7 +86,7 @@ export class UserService {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       }),
-      body: { id }
+      body: {id}
     };
 
     return this.http.delete(`${api}users/`, deleteOptions);

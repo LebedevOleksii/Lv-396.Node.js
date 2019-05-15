@@ -42,7 +42,7 @@ export class CommentModalComponent implements OnInit {
       .createComment(this.task.id, form.comment, this.userService.getUserId())
       .subscribe(
         (response: any) => {
-          this.toastr.success(response.updated, 'Request is');
+          this.toastr.success(response.updated, 'Comment created');
         },
         (error) => {
           this.toastr.error(error.statusText, 'Error response');

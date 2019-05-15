@@ -83,11 +83,11 @@ export class AddTaskFormComponent implements OnInit {
     this.isSuccessfullyDeleted = false;
     this.filterDefaultVal = 1;
     this.getTheFilter();
-    this.userService.takeUser
+    this.userService.getUser()
       .subscribe(user => this.user = user);
     this.isUserHR = this.isUserRoleHR();
     this.userService.getAllHr()
-      .subscribe(users => { this.createUserDropDown(users); });
+      .subscribe(users => this.createUserDropDown(users));
     this.typeObject = this.createTaskType();
   }
 
@@ -142,8 +142,8 @@ export class AddTaskFormComponent implements OnInit {
   onSubmit(): void {
     const requestBody: TaskCreateRequestBody = this.getRequestBody(this.addTaskForm.value);
     this.tasksService.createTask(requestBody)
-      .subscribe((result: { id: string }) => { this.successHandling(result.id); },
-        error => { this.errorHandling(error); }
+      .subscribe((result: {id: string}) => this.successHandling(result.id),
+        error => this.errorHandling(error)
       );
   }
 
@@ -196,8 +196,8 @@ export class AddTaskFormComponent implements OnInit {
     event.preventDefault();
     this.tasksService.deleteTask(this.newTaskId)
       .subscribe(
-        () => { this.deleteIsSuccess(); },
-        error => { this.errorHandling(error); }
+        () => this.deleteIsSuccess(),
+        error => this.errorHandling(error)
       );
   }
 

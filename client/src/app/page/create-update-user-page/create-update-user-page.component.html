@@ -5,18 +5,17 @@
   </div>
   <div class="col-lg-8 sidebar-wrapper">
     <app-create-update-user></app-create-update-user>
-  </div>
-</main>
-<div class="row save-profile">
-  <div class="col">
-    <div class="alert alert-danger" *ngIf="notValidUser">Please, fill in all required fields</div>
-    <div>
-      <button class="save-button" (click)="extractUser(createUserComponent.user,
+    <div class="row save-profile">
+      <div class="col">
+        <div>
+          <button class="save-button" (click)="extractUser(createUserComponent.user,
               createUserComponent.ifChosenDevelopmentDepartment,
               createUserComponent.ifChosenHrDepartment)">
-        Save profile
-      </button>
-      <button (click)="showSuccess()">Press me</button>
+            Save profile
+          </button>
+        </div>
+      </div>
     </div>
   </div>
-</div>
+</main>
+

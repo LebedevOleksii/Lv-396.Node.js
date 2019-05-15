@@ -1,5 +1,5 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
-import { IDepartment } from '../../../common/models/department';
+import { Component, OnInit, OnDestroy, Input, OnChanges } from '@angular/core';
+import { Department } from '../../../common/models/department';
 import { DepartmentService } from '../../../common/services/department.service';
 import { OptionPair } from '../../../common/models/option-pair';
 import { UserService } from '../../../common/services/user.service';
@@ -11,12 +11,12 @@ import { Subject } from 'rxjs/Rx';
   templateUrl: './create-update-side-bar-info.component.html',
   styleUrls: ['./create-update-side-bar-info.component.scss']
 })
-export class CreateUpdateSideBarInfoComponent implements OnInit, OnDestroy {
+export class CreateUpdateSideBarInfoComponent implements OnInit, OnDestroy, OnChanges {
   private destroy$ = new Subject<void>();
 
   @Input() user;
   departmentsOptionPair: OptionPair[] = [];
-  departments: IDepartment[] = [];
+  departments: Department[] = [];
   positions: OptionPair[] = [];
   teamLeads: OptionPair[] = [];
   hrs: OptionPair[] = [];
@@ -30,18 +30,6 @@ export class CreateUpdateSideBarInfoComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.departmentService.getAllDepartments()
-      .takeUntil(this.destroy$)
-      .subscribe(data => {
-        this.departmentsOptionPair = data.map(o => new OptionPair(o._id, o.name));
-        this.departments = data;
-        if (this.user.department) {
-          this.positions = this.departments
-            .filter(elem => elem._id === this.user.department._id)[0].position
-            .map(e => new OptionPair(e, e));
-        }
-      });
-
     this.userService.getAllTeamLeads()
       .takeUntil(this.destroy$)
       .subscribe((data: any) => {
@@ -59,6 +47,20 @@ export class CreateUpdateSideBarInfoComponent implements OnInit, OnDestroy {
       .takeUntil(this.destroy$)
       .subscribe(data => {
         this.managers = data.map(elem => new OptionPair(elem._id, `${elem.firstName} ${elem.lastName}`));
+      });
+  }
+
+  ngOnChanges(): void {
+    this.departmentService.getAllDepartments()
+      .takeUntil(this.destroy$)
+      .subscribe(data => {
+        this.departmentsOptionPair = data.map(o => new OptionPair(o._id, o.name));
+        this.departments = data;
+        if (this.user.department) {
+          this.positions = this.departments
+            .filter(elem => elem._id === this.user.department._id)[0].position
+            .map(e => new OptionPair(e, e));
+        }
       });
   }
 

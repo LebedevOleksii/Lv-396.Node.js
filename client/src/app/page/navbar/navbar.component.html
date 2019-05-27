@@ -8,16 +8,16 @@
           </a>
         </div>
         <div class="navbar-item">
-          <a href [routerLink]="[ '/profile/upcoming-tasks' ]" (click)="currentByRout('/profile/upcoming-tasks');"
+          <a href [routerLink]="[ '/profile/upcoming-tasks' ]" (click)="closeBurgerMenu(false)"
             class="navbar-item__logo">
             <img src='assets/img/logo-desk.png' alt="logo/main-page">
           </a>
         </div>
       </div>
-      <app-burger-menu [active]="active" [menuList]="menuList" [userType]="userType" (focusOut)="closeBurger($event)"></app-burger-menu>
+      <app-burger-menu [active]="active" [menuList]="menuList" [userType]="userType" (focusOut)="closeBurgerMenu($event)"></app-burger-menu>
     </div>
     <div class="col-7 col-lg-7 d-flex pl-0 h-100">
-      <app-navbar-profile [userType]="userType" class="flex-grow-1 h-100"></app-navbar-profile>
+      <app-navbar-profile [userType]="userType" class="flex-grow-1 h-100" (click)="closeBurgerMenu(false)"></app-navbar-profile>
     </div>
   </nav>
 </div>

@@ -1,6 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { OptionPair } from '../../../common/models/option-pair';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { UserService } from '../../../common/services/user.service';
+import { ActivatedRoute } from '@angular/router';
+
+import { User } from '../../../common/models/user';
+
+import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@angular/forms';
+import { DatesItem } from '../../common/dates-item';
 
 @Component({
   selector: 'app-create-update-user',
@@ -8,39 +13,108 @@ import { OptionPair } from '../../../common/models/option-pair';
   styleUrls: ['./create-update-user.component.scss']
 })
 export class CreateUpdateUserComponent implements OnInit {
+
+
+  @Output() readonly sendContacts: EventEmitter<[]> = new EventEmitter<[]>();
+  @Output() readonly sendMContacts: EventEmitter<[]> = new EventEmitter<[]>();
+
   profileForm: FormGroup;
-  pairList: OptionPair[];
-  contacts: string[];
+  contactsForm: FormGroup;
+  user: User;
+  contacts;
+  MContacts;
+  addContacts;
+  allContacts;
+  id: string;
+  date: DatesItem[];
 
+  constructor(private readonly userInfoService: UserService,
+    private readonly route: ActivatedRoute,
+    private readonly fb: FormBuilder) {
 
-  constructor(private readonly fb: FormBuilder) {
-    this.profileForm = fb.group({
-      email: ['', Validators.required],
-      phone: ['', Validators.required],
-      skype: ['', Validators.required],
-      telegram: ['', Validators.required],
-      contacts: this.fb.group({
-      })
+    this.profileForm = fb.group({});
+
+    this.contactsForm = fb.group({
+      form_contacts: new FormArray([])
     });
   }
 
   ngOnInit(): void {
+    this.checkIdParam();
+
+    if (this.id) {
+      this.loadUser(this.id);
+    } else {
+      this.user = new User();
+      this.profileForm = this.fb.group({
+        email: new FormControl('', { validators: Validators.required, updateOn: 'blur' }),
+        phone: new FormControl('', { validators: Validators.required, updateOn: 'blur' })
+      });
+    }
+
+    this.addContacts = [];
     this.contacts = [];
-    this.pairList = [{_id: 1, name: 'telegram'}, {_id: 2, name: 'skype'}];
+    this.allContacts = [];
+    this.MContacts = [];
   }
 
-  addContact(): void {
-    const item = `contact-${this.contacts.length}`;
-    this.getContacts.addControl(item, new FormControl('', [Validators.required]));
-    this.contacts = [...this.contacts, item];
+  getData(contacts: []): void {
+    this.addContacts = contacts;
+    this.updateData();
   }
 
-  removeContact(control: string): void {
-    this.getContacts.removeControl(control) ;
-    this.contacts.pop();
+  updateData(): void {
+    this.contacts = this.form_contacts.value;
+    this.mergeContacts();
+    this.sendContacts.emit(this.allContacts);
+  }
+  updateMContact(): void {
+    this.MContacts = this.profileForm.value;
+    this.sendMContacts.emit(this.MContacts);
   }
 
-  get getContacts(): any {
-    return this.profileForm.get('contacts');
+  mergeContacts(): void {
+    this.allContacts = [...this.contacts, ...this.addContacts];
   }
+
+  private readonly loadUser = (id: string) => {
+    this.userInfoService.getUser(this.id)
+      .subscribe((user) => {
+        this.user = user;
+        this.contacts = user.contacts;
+        this.setForm(this.contacts);
+        this.setProfileForm(user.phone, user.email);
+      });
+  };
+
+  private readonly checkIdParam = () => {
+    this.id = this.route.snapshot.paramMap.get('id');
+  };
+
+  private getFullName(): string {
+    return `${this.user.firstName} ${this.user.lastName}`;
+  }
+
+  private setForm(contacts: []): void {
+    contacts.forEach(element => {
+      this.form_contacts.push(
+        this.fb.group({
+          contact_name: new FormControl(element['contact_name'], { validators: Validators.required, updateOn: 'blur' }),
+          contact_value: new FormControl(element['contact_value'], { validators: Validators.required, updateOn: 'blur' })
+        })
+      );
+    });
+  }
+
+  private setProfileForm(phone, email): void {
+    this.profileForm = this.fb.group({
+      email: new FormControl(email, { validators: Validators.required, updateOn: 'blur' }),
+      phone: new FormControl(phone, { validators: Validators.required, updateOn: 'blur' })
+    });
+  }
+
+  get form_contacts(): FormArray {
+    return this.contactsForm.get('form_contacts') as FormArray;
+  }
+
 }

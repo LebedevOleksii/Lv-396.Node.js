@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../../common/services/auth.service';
 import { UserService } from '../../../common/services/user.service';
@@ -17,7 +17,7 @@ import { DatesItem } from '../../common/dates-item';
   providers: [AuthService]
 })
 
-export class NavbarProfileComponent implements OnInit, OnChanges {
+export class NavbarProfileComponent implements OnInit {
   @Input() public userType: string;
 
   user: User;
@@ -37,10 +37,6 @@ export class NavbarProfileComponent implements OnInit, OnChanges {
               private readonly userService: UserService,
               private readonly tasksService: TasksService,
               private readonly dateService: DateService) {
-  }
-
-  ngOnChanges(): void {
-    this.currentByRout(this.router.url);
   }
 
   ngOnInit(): void {
@@ -135,23 +131,14 @@ export class NavbarProfileComponent implements OnInit, OnChanges {
   }
 
   currentByIndex(i: number): boolean {
-    this.navItemsService.currentIndex(i);
     if (this.menuList[i].logout) {
-      this.menuList[i].current = false;
       this.logout();
     }
     if (this.menuList[i].router === '/profile/edit-user/:id') {
       this.editUserPage();
-      this.currentByRout('/profile/edit-user/:id');
     }
 
     return false;
-  }
-
-  currentByRout(currentRouter: string): boolean {
-    this.navItemsService.currentRouter(currentRouter);
-
-    return this.active = false;
   }
 
   trackById(index: number, item: NavItem): string {

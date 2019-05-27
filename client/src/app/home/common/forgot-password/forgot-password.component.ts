@@ -20,7 +20,7 @@ export class ForgotPasswordComponent implements OnInit {
               private readonly fb: FormBuilder,
               private readonly recoverPassword: RecoverPasswordService) {
     this.frm = fb.group({
-      email: ['', Validators.compose([Validators.required, Validators.pattern('^[^\s@]+@[^\s@]+\.[^\s@]{2,}$')])],
+      email: ['', [Validators.required, Validators.email]],
     });
     this.hasFailed = false;
     this.getResponse = false;

@@ -34,25 +34,22 @@ export class UpcomingDatesComponent implements OnInit {
   }
 
   loadUser(): void {
-    this.userService.getUser(this.userService.getUserId())
+    this.userService.getUser()
       .subscribe(user => {
         this.user = user;
-      });
-    if (this.userService.getUserType() === 'hr') {
-      this.userService.getUsersOfHr()
-        .subscribe(users => {
-          this.dateList = [];
-          users.forEach((user) => {
+        if (this.userService.getUserType() === 'hr') {
+          this.userService.getUsersOfHr()
+            .subscribe(users => {
+              this.dateList = [];
+              users.forEach((item) => {
+                this.dateList = this.dateService.setDateList(item, this.dateList);
+              });
+            });
+        } else if (this.userService.getUserType() === 'developer') {
+            this.dateList = [];
             this.dateList = this.dateService.setDateList(user, this.dateList);
-          });
-        });
-    } else if (this.userService.getUserType() === 'developer') {
-      this.userService.takeUser
-        .subscribe(user => {
-          this.dateList = [];
-          this.dateList = this.dateService.setDateList(user, this.dateList);
-        });
-    }
+        }
+      });
   }
 
   getFilters(): void {

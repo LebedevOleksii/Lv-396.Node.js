@@ -28,12 +28,7 @@ export class BurgerMenuComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  closeBurgerMenu(event): void {
-    this.focusOut.emit(event);
-  }
-
-  currentByIndex(i): boolean {
-    this.navItemsService.currentIndex(i);
+  closeBurgerMenu(): boolean {
     this.focusOut.emit(false);
 
     return false;

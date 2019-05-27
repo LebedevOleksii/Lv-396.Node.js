@@ -27,6 +27,10 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     this.checkIdParam();
   }
 
+  private isHr(): boolean {
+    return  this.userInfoService.getUserType() === 'hr';
+  }
+
   editUser(): void {
     this.router.navigate(['/profile/edit-user', this.user._id], {relativeTo: this.route});
   }

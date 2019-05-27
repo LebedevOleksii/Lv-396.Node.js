@@ -15,37 +15,19 @@ export class HomeComponent {
 
   frm: FormGroup;
   hasFailed: boolean;
-  submitted: boolean;
   showInputErrorslogin = false;
   showInputErrorsPassword = false;
 
   constructor(private readonly authService: AuthService, public router: Router, private readonly fb: FormBuilder) {
     this.frm = fb.group({
       login: ['', Validators.required],
-      password: ['', Validators.required]
+      password: ['', [Validators.required, Validators.minLength(3)]]
     });
     this.hasFailed = false;
   }
 
   auth(form: any): boolean {
-    this.submitted = true;
     const helper = new JwtHelperService();
-    if (this.frm.untouched) {
-      this.hasFailed = true;
-
-      return undefined;
-    }
-
-    if (this.frm.invalid && this.frm.get('login').value === '') {
-      this.showInputErrorslogin = true;
-
-      return undefined;
-    }
-    if (this.frm.invalid && this.frm.get('password').value === '') {
-      this.showInputErrorsPassword = true;
-
-      return undefined;
-    }
 
     this.frm.valueChanges.subscribe((value: string) => {
       if (value.length !== 0) {

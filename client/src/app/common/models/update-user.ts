@@ -7,6 +7,7 @@ export class UpdateUser {
               public position?: string,
               public email?: string,
               public phone?: string,
+              public contacts?: object[],
               public type?: string,
               public manager?: string,
               public teamlead?: string,
@@ -22,6 +23,7 @@ export class UpdateUser {
     this.position = user.position;
     this.email = user.email;
     this.phone = user.phone;
+    this.contacts = user.contacts;
     this.type = user.type;
     this.manager = user.manager._id;
     if (user.teamlead) {

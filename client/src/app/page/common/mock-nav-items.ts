@@ -5,7 +5,7 @@ export const NAVBAR_LIST: NavItem[] = [
   {
     id: 'upcoming-tasks',
     title: 'upcoming tasks',
-    current: true,
+    current: false,
     router: '/profile/upcoming-tasks',
     rightMenu: false,
     burgerMenu: true,

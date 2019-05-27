@@ -1,34 +1,27 @@
 <div class="row additional-info">
-  <form [formGroup]="addDatesForm">
-    <div class="date-form col-md-12">
-      <div class="info-form">
-        <div class="input-label"><label for="">Upcoming review date</label></div>
-        <app-datepicker></app-datepicker>
-      </div>
-
-      <div class="info-form">
-        <div class="input-label"><label for="">Birthday date</label></div>
-        <app-datepicker></app-datepicker>
-      </div>
-
-      <form [formGroup]="addDatesForm">
-        <div class="row add-date" *ngFor="let date of dates">
-          <div class="col-md-10 date-topic">
-            <input class="form-control" type="text" placeholder="Date topic"
-                   aria-label="Add Date">
-          </div>
-          <div (click)="removeDate()" class="col-md-2 dlete-icon">
-            <img _ngcontent-c4="" alt="delete" class="delete__icon" src="assets/img/delete.svg">
-          </div>
-          <app-datepicker class="col-md-10"></app-datepicker>
+  <form [formGroup]="addDatesForm" novalidate>
+    <div class="date-form">
+      <div class="row add-date" formArrayName="datesCount"
+           *ngFor="let date of addDatesForm.controls.datesCount.controls; let i = index">
+        <div *ngIf="(checkFirstElement(i))">
+          <div class="input-label"><label>Upcoming review date</label></div>
         </div>
-      </form>
-
-      <button class="light-button date-button" (click)="addDate()">
+        <div *ngIf="(!checkFirstElement(i))" class="date-topic">
+          <div class="col-md-10 date-topic" [formGroupName]="i">
+            <input class="form-control" type="text" placeholder="Date topic" formControlName="topic"
+                   aria-label="Add Date" required minlength="3" maxlength="20">
+          </div>
+          <div class="col-md-2 dlete-icon">
+            <img _ngcontent-c4="" alt="delete" class="delete__icon" src="assets/img/delete.svg" (click)="removeDate(i)">
+          </div>
+        </div>
+        <app-datepicker (onDateChange) = 'addDatesForm.controls.datesCount.value[i].date = $event'
+                 class="col-md-10"></app-datepicker>
+      </div>
+      <button type="submit" class="col-md-12 light-button" (click)="addDate()">
         <img _ngcontent-c4="" alt="add" class="add__icon" src="assets/img/add.svg">
         Add date
       </button>
-
     </div>
   </form>
 </div>

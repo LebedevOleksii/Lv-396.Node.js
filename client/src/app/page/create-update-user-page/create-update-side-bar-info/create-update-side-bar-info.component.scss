@@ -9,27 +9,6 @@
   font-family: $font-stack;
   align-items: flex-end;
 
-  .upload-image {
-    display: flex;
-    padding-bottom: 20px;
-    .photo {
-      flex: 2 70%;
-      max-width: 160px;
-    }
-    .update-photo-button {
-      padding: 10px;
-      align-self: center;
-      flex: 2 30%;
-      height: 48px;
-      border: none;
-      background-color: $primary-color;
-      color: white;
-      text-transform: uppercase;
-      line-height: normal;
-      font-weight: bold;
-      font-size: 12px;
-    }
-  }
   .info-form {
     padding: 10px 0 10px 0;
     .input-label {

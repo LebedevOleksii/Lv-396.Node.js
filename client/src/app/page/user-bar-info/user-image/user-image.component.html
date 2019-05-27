@@ -1,10 +1,3 @@
-<img class="img-fluid" [src]="imageURL" alt="avatar"/>
-<div class="input-group">
-  <form [formGroup]="form" (ngSubmit)="upload()" enctype="multipart/form-data">
-    <div class="custom-file">
-        <input type="file" formControlName="avatar" name="avatar" #fileInput class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-        <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-    </div>
-    <button class="update-photo-button">Update Image</button>
-  </form>
+<div class="avatar-container center">
+  <img class="circle" [src]="imageURL" alt="avatar" />
 </div>

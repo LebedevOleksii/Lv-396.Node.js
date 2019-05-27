@@ -173,14 +173,4 @@ describe('SocialNetworkService', () => {
       });
   }))
   );
-
-  it(`should return item list were in item with index 2 property current = true`, fakeAsync(inject([NavItemsService], (service: NavItemsService) => {
-    service.currentIndex(0)
-      .subscribe(list => {
-        expect(list)
-          .toEqual(mockNavItemsList);
-      });
-  }))
-  );
-
 });

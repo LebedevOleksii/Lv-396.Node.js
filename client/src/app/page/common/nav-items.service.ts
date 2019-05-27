@@ -15,9 +15,4 @@ export class NavItemsService {
 
     return of(NAVBAR_LIST);
   }
-  currentIndex(index: number): Observable<NavItem[]> {
-    NAVBAR_LIST.map((item, i) => item.current = i === index);
-
-    return of(NAVBAR_LIST);
-  }
 }

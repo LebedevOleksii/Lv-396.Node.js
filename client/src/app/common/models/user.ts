@@ -1,8 +1,8 @@
 import { DatesItem } from '../../page/common/dates-item';
 
 export class Contact {
-  constructor(public contact_name?: string,
-              public contact_value?: string) {}
+  constructor(public contactName?: string,
+              public contactValue?: string) {}
 }
 
 export class Department {

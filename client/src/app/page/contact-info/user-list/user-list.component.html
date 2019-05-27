@@ -1,28 +1,27 @@
 <div class="wrapper">
-  <div class="row list-users" *ngFor="let user of users | filterUsersBy: filterText; trackBy: trackByFn;"
-    (click)="selectUser(user._id)">
-    <div class="col-md-4 box font-weight-bold">
-      {{ user.firstName }} {{ user.lastName }}
+  <cdk-virtual-scroll-viewport itemSize="120">
+    <div class="row list-users" *cdkVirtualFor="let user of users | filterUsersBy: filterText;"
+      (click)="selectUser(user._id)">
+      <div class="col-md-4 box font-weight-bold">
+        {{ user.firstName }} {{ user.lastName }}
+      </div>
+      <div class="col-md-8 box-wrapper">
+        <div class="col-md-3 box">
+          {{ user.position }}
+        </div>
+        <div class="col-md-3 box">
+          {{ user.email }}
+        </div>
+        <div class="col-md-3 box">
+          {{ user.phone }}
+        </div>
+        <div class="col-md-3 box" *ngIf="user.contacts.length > 0 && user.contacts[0].contact_value">
+          {{ user.contacts[0].contact_value }}
+        </div>
+        <div class="col-md-3 box" *ngIf="user.contacts.length == 0">
+          -
+        </div>
+      </div>
     </div>
-    <div class="col-md-8 box-wrapper">
-      <div class="col-md-3 box">
-        {{ user.position }}
-      </div>
-      <div class="col-md-3 box">
-        {{ user.email }}
-      </div>
-      <div class="col-md-3 box">
-        {{ user.phone }}
-      </div>
-      <div class="col-md-3 box" *ngIf="user.contacts.length > 0 && user.contacts[0].contact_value">
-        {{ user.contacts[0].contact_value }}
-      </div>
-      <div class="col-md-3 box" *ngIf="user.contacts.length == 0">
-        -
-      </div>
-    </div>
-  </div>
-  <div class="d-flex justify-content-center mt-2" *ngIf="getDepartmentId()">
-    <button class="btn btn-primary" (click)="showOrHide()">{{ message }}</button>
-  </div>
+  </cdk-virtual-scroll-viewport>
 </div>

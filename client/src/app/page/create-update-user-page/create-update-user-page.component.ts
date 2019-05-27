@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UserService } from '../../common/services/user.service';
-import { User } from '../../common/models/user';
+import { User, Contact } from '../../common/models/user';
 import { Subject } from 'rxjs/Rx';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -13,7 +13,10 @@ import { ToastrService } from 'ngx-toastr';
 export class CreateUpdateUserPageComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
 
+
   user: User = new User();
+  finalContacts: [];
+  finalMContacts: [];
   ifChosenDevelopmentDepartment: boolean;
   ifChosenHrDepartment: boolean;
   notValidUser: boolean;
@@ -27,7 +30,13 @@ export class CreateUpdateUserPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.userService.chosenDatesForUser.subscribe((date) => {
+      this.user.dates = date;
+    });
     this.notValidUser = false;
+    this.finalContacts = [];
+    this.finalMContacts = [];
+
     this.route.paramMap.subscribe(parameterMap => {
       const id = parameterMap.get('id');
       this.getEmployee(id);
@@ -44,12 +53,23 @@ export class CreateUpdateUserPageComponent implements OnInit, OnDestroy {
     }
   }
 
+  setContacts(contacts: []): void {
+    this.finalContacts = contacts;
+    this.user.contacts =  this.finalContacts;
+  }
+
+  setMContacts(contacts: []): void {
+    this.finalMContacts = contacts;
+    this.user.phone = this.finalMContacts['phone'];
+    this.user.email =  this.finalMContacts['email'];
+  }
+
   extractUser(user, chosenDevelopmentDepartment, chosenHrDepartment): any {
     this.user = user;
     this.ifChosenDevelopmentDepartment = chosenDevelopmentDepartment;
     this.ifChosenHrDepartment = chosenHrDepartment;
-    this.user.phone = '8399463344845';
-    this.user.email = 'tyrleyl23@gmail.com';
+
+    this.user.contacts =  this.finalContacts;
 
     if (this.validateUser()) {
       if (this.user._id) {

@@ -241,5 +241,5 @@ module.exports = {
   deleteOne,
   getAll,
   updateForResolve,
-  updateForComment
+  updateForComment,
 };

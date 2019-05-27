@@ -1,56 +1,39 @@
-<div class="row main-user-info">
+<div class="row main-user-info" *ngIf="user && id">
   <div class="col main-user-info">
-    <h1>Name Surname</h1>
-    <p>position</p>
+    <h1>{{ getFullName() }}</h1>
+    <p>{{ user.position }}</p>
   </div>
 </div>
-<form [formGroup]="profileForm">
-  <div class="row additional-info">
-    <div class="col-md-6 user-info">
+<div class="row additional-info" *ngIf="user">
+  <div class="col-md-6 user-info">
+    <form [formGroup]="profileForm">
       <div class="info-form">
         <div class="input-label"><label for="email">Email</label></div>
-        <input formControlName="email" class="form-control" type="text" placeholder="Email" id='email'
-               aria-label="Email">
+        <input formControlName="email" (blur)="updateMContact()" value="{{user.email}}" class="form-control" type="text"
+          placeholder="Email" id='email' aria-label="Email">
       </div>
 
       <div class="info-form">
         <div class="input-label"><label for="phone">Phone</label></div>
-        <input formControlName="phone" class="form-control" type="text" placeholder="Phone" id='phone'
-               aria-label="Phone">
+        <input formControlName="phone" (blur)="updateMContact()" value="{{user.phone}}" class="form-control" type="text"
+          placeholder="Phone" id='phone' aria-label="Phone">
       </div>
+    </form>
 
-      <div class="info-form">
-        <div class="input-label"><label for="skype">Skype</label></div>
-        <input formControlName="skype" class="form-control" type="text" placeholder="Skype" id='skype'
-               aria-label="Skype">
-      </div>
-
-      <div class="info-form">
-        <div class="input-label"><label for="telegram">Telegram</label></div>
-        <input formControlName="telegram" class="form-control" type="text" placeholder="Telegram" id='telegram'
-               aria-label="Telegram">
-      </div>
-      <form [formGroup]="profileForm.get('contacts')">
-        <div class="row add-contact" *ngFor="let contact of contacts; let i = index">
-          <div class="col-md-4 dropdown-contact">
-            <app-dropdown-info class="dropdown-contact" [pairList]='pairList'>
-            </app-dropdown-info>
-          </div>
-          <div class="col-md-6 input-contact">
-            <input [formControlName]="contact" class="form-control" type="text" placeholder="Contact"
-                   aria-label="Add Contact">
-          </div>
-          <div (click)="removeContact()" class="col-md-2 dlete-icon">
-            <img _ngcontent-c4="" alt="delete" class="delete__icon" src="assets/img/delete.svg">
-          </div>
+    <div class="info-form" *ngFor="let contact of form_contacts.controls; let i = index">
+      <form [formGroup]="contactsForm">
+        <div formArrayName="form_contacts">
+          <form [formGroup]="contact">
+            <div class="input-label"><label for="name">{{contact.controls['contact_name'].value}}</label></div>
+            <input formControlName="contact_value" (blur)="updateData()" value="contact_value" class="form-control"
+              type="text" placeholder="contact login" id="contact_name">
+          </form>
         </div>
       </form>
-
-      <button class="light-button fields-button" (click)="addContact()">
-        <img _ngcontent-c4="" alt="add" class="add__icon" src="assets/img/add.svg">
-        Add fields
-      </button>
     </div>
-    <app-create-update-date class="col-md-5 date-info"></app-create-update-date>
+
+    <app-additional-contacts (sendContacts)="getData($event)" *ngIf="id">
+    </app-additional-contacts>
   </div>
-</form>
+  <app-create-update-date class="col-md-5 date-info"></app-create-update-date>
+</div>

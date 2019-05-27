@@ -51,22 +51,24 @@ const updateOne = async (req, res) => {
   } = req.body;
   const user = helpers.reducePropsToObject(arrKeys, req.body);
 
-  let contacts = helpers.readInsertedObject('contactName', 'contactValue', req);
-  if (contacts) {
-    contacts = contacts.map(el => ({
-      contact_name: el.contactName,
-      contact_value: el.contactValue,
-    }));
-    user.contacts = [...contacts];
+  if (req.body.contacts) {
+    user.contacts = [...req.body.contacts];
+  } else {
+    user.contacts = [];
   }
 
-  let dates = helpers.readInsertedObject('dateTopic', 'date', req);
-  if (dates) {
-    dates = dates.map(el => ({
-      topic: el.dateTopic,
-      date: el.date,
-    }));
-    user.dates = [...dates];
+  if (user.roles) {
+    user.roles = user.roles.map(role => role.toLowerCase());
+  }
+
+  if (user.type) {
+    user.type = user.type.toLowerCase();
+  }
+
+  if (req.body.dates) {
+    user.dates = [...req.body.dates];
+  } else {
+    user.dates = [];
   }
 
   if (req.file) {

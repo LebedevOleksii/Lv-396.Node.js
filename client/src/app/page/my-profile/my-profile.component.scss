@@ -41,14 +41,14 @@
 
   .contact_down {
     position: absolute;
-    bottom: 25px;
+    margin-top: 70px;
 
-    :first-child {
-      margin-bottom: 4px;
-    }
+    .contact_down_item {
+      margin-bottom: 15px;
 
-    :last-child {
-      margin-top: 16px;
+      :first-child {
+        margin-bottom: 4px;
+      }
     }
   }
 

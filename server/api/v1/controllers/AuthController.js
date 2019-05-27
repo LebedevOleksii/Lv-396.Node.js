@@ -61,26 +61,24 @@ const signup = async (req, res) => {
     parameters.roles = parameters.roles.map(role => role.toLowerCase());
   }
 
+  if (parameters.type) {
+    parameters.type = parameters.type.toLowerCase();
+  }
+
   const newUser = User({
     ...parameters,
   });
 
-  let contacts = helpers.readInsertedObject('contactName', 'contactValue', req);
-  if (contacts) {
-    contacts = contacts.map(el => ({
-      contact_name: el.contactName,
-      contact_value: el.contactValue,
-    }));
-    newUser.contacts = [...contacts];
+  if (req.body.contacts) {
+    newUser.contacts = [...req.body.contacts];
+  } else {
+    newUser.contacts = [];
   }
 
-  let dates = helpers.readInsertedObject('dateTopic', 'date', req);
-  if (dates) {
-    dates = dates.map(el => ({
-      topic: el.dateTopic,
-      date: el.date,
-    }));
-    newUser.dates = [...dates];
+  if (req.body.dates) {
+    newUser.dates = [...req.body.dates];
+  } else {
+    newUser.dates = [];
   }
 
   if (req.file) {
@@ -103,7 +101,7 @@ const signup = async (req, res) => {
   let savedUser;
   try {
     savedUser = await newUser.save();
-    smtpTransport.sendMail(mailData);
+    await smtpTransport.sendMail(mailData);
     res.status(201).json({
       newUser,
     });

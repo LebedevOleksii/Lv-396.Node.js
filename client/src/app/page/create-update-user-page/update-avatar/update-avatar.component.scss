@@ -1,0 +1,25 @@
+@import '../../../common/css/theme.scss';
+
+.center {
+    margin: auto;
+  }
+  
+form {
+    width: 100%;
+  }
+
+.update-photo-button {
+    margin-top: 3px;
+    padding: 10px;
+    align-self: center;
+    flex: 2 30%;
+    height: 48px;
+    border: none;
+    background-color: $primary-color;
+    color: white;
+    text-transform: uppercase;
+    line-height: normal;
+    font-weight: bold;
+    font-size: 12px;
+  }
+  

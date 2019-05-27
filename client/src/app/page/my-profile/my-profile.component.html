@@ -29,12 +29,15 @@
             </div>
           </div>
 
-          <div class="contact_down" *ngFor="let contact of user.contacts">
-            <div>
-              <span class="label">{{ contact.contact_name }}</span><br>
+          <div class="contact_down">
+            <div *ngFor="let contact of user.contacts" class="contact_down_item">
+              <div>
+                <span class="label">{{ contact.contact_name }}</span><br>
+              </div>
+              <span class="info">{{ contact.contact_value }}</span>
             </div>
-            <span class="info">{{ contact.contact_value }}</span>
           </div>
+
         </div>
 
         <div class="col-lg-5 col-md-5 date-info">
@@ -70,7 +73,7 @@
           </div>
         </div>
       </div>
-      <div class="row third-row">
+      <div *ngIf="isHr()" class="row third-row">
         <div class="row w-100">
           <div class="button_wrapper w-50" (click)="editUser()">
             <a class="edit_button">Edit Profile</a>
@@ -80,8 +83,8 @@
             <ng-template #template>
               <div class="modal-body text-center">
                 <p>Do you want to delete {{ getFullName() }}?</p>
-                <button type="button" class="btn btn-default" (click)="confirm()" >Yes</button>
-                <button type="button" class="btn btn-primary" (click)="decline()" >No</button>
+                <button type="button" class="btn btn-default" (click)="confirm()">Yes</button>
+                <button type="button" class="btn btn-primary" (click)="decline()">No</button>
               </div>
             </ng-template>
           </div>

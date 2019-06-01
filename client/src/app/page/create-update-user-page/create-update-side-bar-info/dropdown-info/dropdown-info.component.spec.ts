@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DropdownInfoComponent } from './dropdown-info.component';
+import { BsDropdownModule } from 'ngx-bootstrap';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+
 
 describe('DropdownInfoComponent', () => {
   let component: DropdownInfoComponent;
@@ -8,7 +11,11 @@ describe('DropdownInfoComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DropdownInfoComponent ]
+      declarations: [ DropdownInfoComponent ],
+      imports: [
+        BsDropdownModule.forRoot(),
+        HttpClientTestingModule
+      ]
     })
     .compileComponents();
   }));
@@ -20,6 +27,7 @@ describe('DropdownInfoComponent', () => {
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(component)
+      .toBeTruthy();
   });
 });

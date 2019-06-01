@@ -37,8 +37,14 @@
     <div class="info-form">
       <div class="input-label">
         <label for="position">Position</label>
+        <div (click)="warningToChooseDepartmentFirst()">
+          <span class="alert-danger"
+                *ngIf="warningForChoosingDepartment">Choose department first
+          </span>
+        </div>
       </div>
       <app-dropdown-info class="info-input-area" id="position"
+                         (click)="warningToChooseDepartmentFirst()"
                          [pairList]="positions"
                          (selected)="user.position = $event"
                          [required]="true"
@@ -86,7 +92,7 @@
       <app-dropdown-info class="info-input-area" id="roles"
                          [roles]="true"
                          (selectedRoles)="user.roles = $event"
-                         [updateRolesList] = user.roles
+                         [updateRolesList]=user.roles
                          [positionIdentifier]="'roles'">
       </app-dropdown-info>
     </div>

@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import { throwError } from 'rxjs';
+import { throwError, Observable } from 'rxjs';
 import { api } from '../../../environments/environment';
 
 @Injectable({
@@ -12,7 +10,7 @@ export class ResetPasswordService {
 
   constructor(private readonly http: HttpClient) { }
 
-  sendPassword(newPass: string, token: string) {
+  sendPassword(newPass: string, token: string): Observable<object> {
     return this.http.post(`${api}auth/recover_password`, {
       newPass,
       token
@@ -20,7 +18,7 @@ export class ResetPasswordService {
       .catch(this.handleError);
   }
 
-  handleError(err: Response | any) {
+  handleError(err: Response | any): any {
     return throwError(err);
   }
 }

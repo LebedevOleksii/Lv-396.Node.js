@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ResetPasswordService } from '../../../common/services/reset-password.service';
+import { throwError } from 'rxjs';
 
 @Component({
   selector: 'app-reset-password',
@@ -21,7 +22,7 @@ export class ResetPasswordComponent implements OnInit {
 
   constructor(private readonly router: Router,
               private readonly fb: FormBuilder,
-              private resetPassword: ResetPasswordService,
+              private readonly resetPassword: ResetPasswordService,
               private readonly snap: ActivatedRoute) {
 
     this.frm = fb.group({
@@ -35,27 +36,30 @@ export class ResetPasswordComponent implements OnInit {
     this.resetSuccess = false;
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.checkToken();
   }
 
-  checkToken() {
+  checkToken(): void {
     this.token = this.snap.snapshot.queryParamMap.get('token');
     if (!this.token) {
       this.router.navigate(['/forgot-password'])
+        .catch(err => throwError(new Error(err)));
     }
   }
 
-  send(pass: string, confPass: string) {
+  send(pass: string, confPass: string): void {
     if (pass !== confPass || pass === '') {
       this.matchFailed = true;
     } else {
-      this.resetPassword.sendPassword(pass, this.token).subscribe(
+      this.resetPassword.sendPassword(pass, this.token)
+        .subscribe(
         (response) => {
           this.getResponse = true;
           this.message = response;
           this.resetSuccess = true;
-          this.router.navigate(['/home']);
+          this.router.navigate(['/home'])
+            .catch(err => throwError(new Error(err)));
         },
         (error) => {
           this.error = error.error.err;

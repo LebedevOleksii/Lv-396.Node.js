@@ -1,7 +1,7 @@
 import { TestBed, getTestBed, async } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { HttpClientModule } from '@angular/common/http';
-import { User } from '../models/user';
+import { User, Department, Manager } from '../models/user';
 import { api } from '../../../environments/environment';
 
 import { UserService } from './user.service';
@@ -45,31 +45,23 @@ describe('UserService', () => {
           photoURL: 'http://res.cloudinary.com/dd1mk/image/upload/v1555326362/hrms/avatars/iq5boujmnj2u0udtiyl7.jpg',
           type: 'dev',
           manager: {
-            watched_issues: [],
-            roles: [],
             _id: '5c9a065b8c40cb0e8cd39d11',
             firstName: 'Skype',
             lastName: 'FileExchanger',
             position: 'Middle QA',
             email: 'dplscode@gmail.com',
             phone: '3802281488',
-            reset_password_expires: '',
-            reset_password_token: '',
             contacts: [
               {
                 contact_name: 'skype',
                 contact_value: 'myskype'
               }
             ],
-            dates: [],
-            department: '5cab274ece3843324cc6d774',
-            manager: '5cbb6d7ba4908a0db878c37a',
-            teamlead: '5ca4804bef0e5e3c50d248db'
+            department: new Department('', '', []),
+            manager: new Manager('5cbb6d7ba4908a0db878c37a'),
           },
           teamlead: {
             photoURL: '',
-            hrID: 1,
-            date: {},
             firstName: 'Skype',
             lastName: 'FileExchanger',
             position: 'Middle QA',
@@ -77,30 +69,24 @@ describe('UserService', () => {
             phone: '3802281488',
             contacts: [
               {
-                contact_name: 'skype',
-                contact_value: 'myskype'
+                contactName: 'skype',
+                contactValue: 'myskype'
               }
             ],
             department: {_id: '5cab274ece3843324cc6d774'},
             manager: {
-              reset_password_expires: '',
-              reset_password_token: '',
               contacts: [{
                 contact_name: 'skype',
                 contact_value: 'myskype'
               }],
-              dates: [],
-              department: '5cab274ece3843324cc6d774',
+              department: new Department('5cab274ece3843324cc6d774'),
               email: 'dplscode@gmail.com',
               firstName: 'Skype',
               lastName: 'FileExchanger',
-              manager: '5cbb6d7ba4908a0db878c37a',
+              manager: new Manager('5cbb6d7ba4908a0db878c37a'),
               phone: '3802281488',
               position: 'Middle QA',
-              roles: [],
-              teamlead: '5ca4804bef0e5e3c50d248db',
               _id: '5c9a065b8c40cb0e8cd39d11',
-              watched_issues: []
             },
           },
           contacts: [],

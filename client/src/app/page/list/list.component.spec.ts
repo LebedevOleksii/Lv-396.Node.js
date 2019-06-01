@@ -17,7 +17,7 @@ describe('ListComponent', () => {
       status: { name: 'LOW', value: 2 },
       type: { name: 'issue', value: 1 },
       date: '22/03/2019',
-      author: {id: '0', firstName: 'Alex', lastName: 'Somename'},
+      author: {_id: '0', firstName: 'Alex', lastName: 'Somename'},
       content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod ' +
         'tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ' +
         'ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis',
@@ -29,7 +29,7 @@ describe('ListComponent', () => {
       status: { name: 'HIGHT', value: 0 },
       type: { name: 'issue', value: 1 },
       date: '23/03/2019',
-      author: {id: '0', firstName: 'Alex', lastName: 'Somename'},
+      author: {_id: '0', firstName: 'Alex', lastName: 'Somename'},
       content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod ' +
         'tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ' +
         'ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis',
@@ -41,7 +41,7 @@ describe('ListComponent', () => {
       status: { name: 'LOW', value: 2 },
       type: { name: 'task', value: 0 },
       date: '24/03/2019',
-      author: {id: '0', firstName: 'Alex', lastName: 'Somename'},
+      author: {_id: '0', firstName: 'Alex', lastName: 'Somename'},
       content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ' +
         'incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud ' +
         'exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis',
@@ -53,7 +53,7 @@ describe('ListComponent', () => {
       status: { name: 'NORMAL', value: 1 },
       type: { name: 'task', value: 0 },
       date: '25/03/2019',
-      author: {id: '0', firstName: 'Alex', lastName: 'Somename'},
+      author: {_id: '0', firstName: 'Alex', lastName: 'Somename'},
       content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ' +
         'incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud ' +
         'exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis',
@@ -65,7 +65,7 @@ describe('ListComponent', () => {
       status: { name: 'LOW', value: 2 },
       type: { name: 'task', value: 0 },
       date: '26/03/2019',
-      author: {id: '0', firstName: 'Alex', lastName: 'Somename'},
+      author: {_id: '0', firstName: 'Alex', lastName: 'Somename'},
       content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ' +
         'incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud ' +
         'exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis',

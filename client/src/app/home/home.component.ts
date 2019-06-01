@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AuthService } from '../common/services/auth.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { throwError } from 'rxjs';
 
 import { JwtHelperService } from '@auth0/angular-jwt';
 
@@ -41,7 +42,8 @@ export class HomeComponent {
         (response: any) => {
           localStorage.setItem('token', response.token);
           localStorage.setItem('type', helper.decodeToken(response.token).type);
-          this.router.navigate(['/profile']);
+          this.router.navigate(['/profile'])
+          .catch(err => throwError(new Error(err)));
         },
         (error) => {
           this.hasFailed = true;

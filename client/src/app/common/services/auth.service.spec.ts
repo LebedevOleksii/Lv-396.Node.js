@@ -5,6 +5,7 @@ import { HttpTestingController, HttpClientTestingModule } from '@angular/common/
 import { api } from '../../../environments/environment';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AuthService } from './auth.service';
+import { throwError } from 'rxjs';
 
 describe('AuthService', () => {
   let httpTestingController: HttpTestingController;
@@ -21,13 +22,14 @@ describe('AuthService', () => {
 
   afterEach(() => {
     httpTestingController.verify();
-    service = null;
+    service = undefined;
     localStorage.removeItem('type');
   });
 
   it('should be created', () => {
     const service: AuthService = TestBed.get(AuthService);
-    expect(service).toBeTruthy();
+    expect(service)
+      .toBeTruthy();
   });
 
   it('should get token', () => {
@@ -35,45 +37,56 @@ describe('AuthService', () => {
       { token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9' }
     ];
 
-    service.auth('asd', '456').subscribe((response) => {
-      expect(response).toEqual(mockToken);
+    service.auth('asd', '456')
+      .subscribe((response) => {
+        expect(response)
+          .toEqual(mockToken);
     });
 
     const mockReq = httpTestingController.expectOne(`${api}auth/login`);
 
-    expect(mockReq.request.method).toEqual('POST');
-
-    expect(mockReq.cancelled).toBeFalsy();
-    expect(mockReq.request.responseType).toEqual('json');
+    expect(mockReq.request.method)
+      .toEqual('POST');
+    expect(mockReq.cancelled)
+      .toBeFalsy();
+    expect(mockReq.request.responseType)
+      .toEqual('json');
     mockReq.flush(mockToken);
 
   });
 
   it(`should emit 'true' for 200 Ok`, async(inject([AuthService, HttpTestingController],
     (service: AuthService, backend: HttpTestingController) => {
-      service.auth('asd', '456').subscribe((next) => {
-        expect(next).toBeTruthy();
+      service.auth('asd', '456')
+        .subscribe((next) => {
+          expect(next)
+            .toBeTruthy();
       });
 
-      backend.expectOne(`${api}auth/login`).flush({ status: 200, statusText: 'Ok' });
+      backend.expectOne(`${api}auth/login`)
+        .flush({ status: 200, statusText: 'Ok' });
     })));
 
   it(`should emit 'false' for 404 User not found`, async(inject([AuthService, HttpTestingController],
     (service: AuthService, backend: HttpTestingController) => {
       service.auth('das', '456')
         .subscribe(() => { }, err => {
-          expect(err).toBe(`User not found`);
+          expect(err)
+            .toBe(`User not found`);
         });
 
-      backend.expectOne(`${api}auth/login`).flush({ status: 404, statusText: 'Not Found' });
+      backend.expectOne(`${api}auth/login`)
+        .flush({ status: 404, statusText: 'Not Found' });
     })));
 
   it('should return false from isLoggedIn when there is no token', () => {
-    expect(service.isLoggedIn()).toBeFalsy();
+    expect(service.isLoggedIn())
+      .toBeFalsy();
   });
 
   it('should return true from isLoggedIn when there is a token', () => {
     localStorage.setItem('type', 'hr');
-    expect(service.isLoggedIn()).toBeTruthy();
+    expect(service.isLoggedIn())
+      .toBeTruthy();
   });
 });

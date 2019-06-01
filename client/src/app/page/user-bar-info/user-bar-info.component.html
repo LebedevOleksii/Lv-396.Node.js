@@ -16,7 +16,7 @@
     </app-link-to-profile>
     <app-link-to-profile class="additional-info" [info]="userinfo.department.name" [label]="'My department'">
     </app-link-to-profile>
-    <app-link-to-profile *ngIf="userType !== 'hr'" class="additional-info" [idLinks]="userinfo.manager.teamlead"
+    <app-link-to-profile *ngIf="userinfo.department.name === 'Development'" [idLinks]="userinfo.manager.teamlead"
                          [info]="getTeamleadName()" [label]="'My Team Lead'">
     </app-link-to-profile>
   </div>

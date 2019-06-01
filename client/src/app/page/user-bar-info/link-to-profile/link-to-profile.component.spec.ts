@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LinkToProfileComponent } from './link-to-profile.component';
+import { RouterTestingModule } from '@angular/router/testing';
+
 
 describe('LinkToProfileComponent', () => {
   let component: LinkToProfileComponent;
@@ -9,7 +11,10 @@ describe('LinkToProfileComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LinkToProfileComponent ]
+      declarations: [ LinkToProfileComponent ],
+      imports: [
+        RouterTestingModule
+      ],
     })
     .compileComponents();
   }));
@@ -23,6 +28,7 @@ describe('LinkToProfileComponent', () => {
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(component)
+      .toBeTruthy();
   });
 });

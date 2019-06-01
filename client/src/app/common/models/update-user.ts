@@ -25,11 +25,11 @@ export class UpdateUser {
     this.phone = user.phone;
     this.contacts = user.contacts;
     this.type = user.type;
-    this.manager = user.manager._id;
+    this.manager = user.manager as string;
     if (user.teamlead) {
-      this.teamlead = user.teamlead._id;
+      this.teamlead = user.teamlead as string;
     }
-    this.department = user.department._id;
+    this.department = user.department as string;
     this.hr = user.hr;
     this.roles = user.roles;
   }

@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../common/services/user.service';
 import { User } from '../../common/models/user';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import { Subject } from 'rxjs/Rx';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-my-profile',
@@ -11,7 +11,8 @@ import { Subject } from 'rxjs/Rx';
   styleUrls: ['./my-profile.component.scss']
 })
 export class MyProfileComponent implements OnInit, OnDestroy {
-  private destroy$ = new Subject<void>();
+  private readonly destroy$ = new Subject<void>();
+
   modalRef: BsModalRef;
   message: string;
 
@@ -20,7 +21,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
               private readonly modalService: BsModalService,
               private readonly router: Router) { }
 
-  user;
+  user: User;
   id: any;
 
   ngOnInit(): void {

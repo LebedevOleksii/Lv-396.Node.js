@@ -2,7 +2,7 @@
   <form [formGroup]="addDatesForm" novalidate>
     <div class="date-form">
       <div class="row add-date" formArrayName="datesCount"
-           *ngFor="let date of addDatesForm.controls.datesCount.controls; let i = index">
+           *ngFor="let date of addDatesForm.controls; let i = index">
         <div *ngIf="(checkFirstElement(i))">
           <div class="input-label"><label>Upcoming review date</label></div>
         </div>

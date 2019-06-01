@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { throwError } from 'rxjs';
 import { PageNotFoundComponent } from './page-not-found.component';
 
 describe('PageNotFoundComponent', () => {
@@ -20,6 +20,7 @@ describe('PageNotFoundComponent', () => {
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(component)
+      .toBeTruthy();
   });
 });

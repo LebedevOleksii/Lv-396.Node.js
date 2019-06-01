@@ -9,10 +9,6 @@ import { Component, OnInit, Input } from '@angular/core';
 export class UserImageComponent implements OnInit {
   @Input() imageURL: string;
 
-  constructor() {
-
-  }
-
   ngOnInit(): void {
     this.imageURL = this.imageURL || 'assets/img/userimg.jpg';
   }

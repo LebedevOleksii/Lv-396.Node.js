@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 
 import { UserFilterComponent } from './user-filter.component';
 import { RouterTestingModule } from '@angular/router/testing';
+import { throwError } from 'rxjs';
 
 describe('UserFilterComponent', () => {
   let component: UserFilterComponent;
@@ -13,7 +14,8 @@ describe('UserFilterComponent', () => {
       declarations: [ UserFilterComponent ],
       imports: [ FormsModule, RouterTestingModule ]
     })
-    .compileComponents();
+    .compileComponents()
+    .catch(err => throwError(new Error(err)));
   }));
 
   beforeEach(() => {
@@ -23,6 +25,7 @@ describe('UserFilterComponent', () => {
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(component)
+      .toBeTruthy();
   });
 });

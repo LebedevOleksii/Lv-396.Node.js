@@ -23,7 +23,7 @@ export class UserFilterComponent implements OnInit {
     return this.id = this.route.snapshot.paramMap.get('id');
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
 
   onGetFilterText(): void {

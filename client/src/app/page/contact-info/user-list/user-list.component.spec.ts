@@ -5,6 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { UserService } from '../../../common/services/user.service';
 import { UserListComponent } from './user-list.component';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 describe('UserListComponent', () => {
   let component: UserListComponent;
@@ -13,7 +14,7 @@ describe('UserListComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [UserListComponent, FilterUsersByPipe],
-      imports: [RouterModule, RouterTestingModule, HttpClientModule],
+      imports: [RouterModule, RouterTestingModule, HttpClientModule, ScrollingModule],
       providers: [UserService]
     })
       .compileComponents();
@@ -26,6 +27,7 @@ describe('UserListComponent', () => {
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(component)
+      .toBeTruthy();
   });
 });

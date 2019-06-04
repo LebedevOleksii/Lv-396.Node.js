@@ -35,6 +35,11 @@ describe('CommentModalComponent', () => {
     fixture.detectChanges();
   });
 
+  afterEach(() => {
+    const modalService: BsModalService = TestBed.get(BsModalService);
+    modalService.hide(1);
+  });
+
   it('should create', () => {
     expect(component)
       .toBeTruthy();

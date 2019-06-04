@@ -32,6 +32,10 @@ export class CommentModalComponent implements OnInit {
     this.modalRef = this.modalService.show(template);
   }
 
+  public closeModal(): void {
+    this.modalRef.hide();
+  }
+
   ngOnInit(): void {
     this.userService.getUser(this.userService.getUserId())
       .subscribe(users => this.user = users);
@@ -43,6 +47,7 @@ export class CommentModalComponent implements OnInit {
       .subscribe(
         (response: any) => {
           this.toastr.success(response.updated, 'Comment created');
+          this.modalRef.hide();
         },
         (error) => {
           this.toastr.error(error.statusText, 'Error response');
